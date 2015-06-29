@@ -7,7 +7,7 @@ Usage
 
 The tree stores instances of `IBkNode<T>` where a `T` can be compared to another `T` and a distance derived. For this example, we could use points on a 2-d plane, defined as such:
 
-  public class Point2D
+  public class Point2D : IEquatable<Point2D>
   {
       public int X { get; private set; }
       public int Y { get; private set; }
@@ -17,6 +17,8 @@ The tree stores instances of `IBkNode<T>` where a `T` can be compared to another
           X = x;
           Y = y;
       }
+      
+      //equality and hashing members... 
   }
 
 Now we could make a type of `IBkNode<Point>` to store in the tree:
@@ -75,3 +77,8 @@ and make sure all is good:
             new Point2D(8, 8),
             new Point2D(0, 8)
         }));
+
+or lets just find the closest node within a threshold:
+
+    Point2DBkNode closest = bkTree.FindClosest(new Point2D(5, 4), 6);
+    Assert.AreEqual(new Point2D(4,4), closest.Value);
