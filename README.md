@@ -68,9 +68,10 @@ Now, lets find all nodes within 6 units of [5,4]:
 
 and make sure all is good:
 
-    Assert.IsTrue(new HashSet<Point2D>(closestNodes.Select(n => n.Value)).SetEquals(new[]
-    {
-        new Point2D(4, 4),
-        new Point2D(8, 8),
-        new Point2D(0, 8)
-    }));
+    Assert.IsTrue(
+      new HashSet<Point2D>(closestNodes.Select(n => n.Value))
+        .SetEquals(new[]{
+            new Point2D(4, 4),
+            new Point2D(8, 8),
+            new Point2D(0, 8)
+        }));
