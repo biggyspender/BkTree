@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BkTree;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -164,13 +165,26 @@ namespace BkTreeTest
             var point2 = new Point2D(3, 4);
             Assert.AreEqual(5, DistanceMetrics.Pythagorean.CalculateDistance(point1, point2));
         }
+
         [TestMethod]
         public void HammingDistanceTest()
         {
-            var point1 = 15628745651041733658UL;
-            var point2 = 15628745651041734650UL;
+            var rnd = new Random();
+            var buf = new byte[8];
+            rnd.NextBytes(buf);
+            ulong point1 = BitConverter.ToUInt64(buf, 0);
+            ulong point2 = point1;
+
+            //flip 5 bits
+            for (var i = 5; i < 10; ++i)
+            {
+                var mask = (1UL << i);
+                point2 ^= mask;
+            }
+
             Assert.AreEqual(5, DistanceMetrics.Hamming.CalculateDistance(point1, point2));
         }
+
         [TestMethod]
         public void HammingDistanceTest2()
         {
@@ -178,6 +192,7 @@ namespace BkTreeTest
             var point2 = 15628745651041733658UL;
             Assert.AreEqual(0, DistanceMetrics.Hamming.CalculateDistance(point1, point2));
         }
+
         [TestMethod]
         public void HammingDistanceTest3()
         {
@@ -185,6 +200,5 @@ namespace BkTreeTest
             var point2 = ulong.MaxValue;
             Assert.AreEqual(64, DistanceMetrics.Hamming.CalculateDistance(point1, point2));
         }
-
     }
 }
