@@ -2,18 +2,18 @@
 
 namespace BkTree
 {
-    public class Point : IEquatable<Point>
+    public class Point2D : IEquatable<Point2D>
     {
         public int X { get; private set; }
         public int Y { get; private set; }
 
-        public Point(int x, int y)
+        public Point2D(int x, int y)
         {
             X = x;
             Y = y;
         }
 
-        public bool Equals(Point other)
+        public bool Equals(Point2D other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -25,7 +25,7 @@ namespace BkTree
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Point) obj);
+            return Equals((Point2D) obj);
         }
 
         public override int GetHashCode()
@@ -36,12 +36,12 @@ namespace BkTree
             }
         }
 
-        public static bool operator ==(Point left, Point right)
+        public static bool operator ==(Point2D left, Point2D right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(Point left, Point right)
+        public static bool operator !=(Point2D left, Point2D right)
         {
             return !Equals(left, right);
         }

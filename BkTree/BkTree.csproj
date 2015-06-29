@@ -46,7 +46,7 @@
     <Compile Include="DistanceMetrics.cs" />
     <Compile Include="HammingDistanceMetric.cs" />
     <Compile Include="IDistanceMetric.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="Point2D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PythagoreanDistanceMetric.cs" />
   </ItemGroup>

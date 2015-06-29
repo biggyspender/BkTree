@@ -2,7 +2,7 @@
 {
     public static class DistanceMetrics
     {
-        public static IDistanceMetric<Point> Pythagorean
+        public static IDistanceMetric<Point2D> Pythagorean
         {
             get
             {

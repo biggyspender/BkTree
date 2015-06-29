@@ -2,16 +2,16 @@
 
 namespace BkTreeTest
 {
-    public class PositionBkNode : IBkNode<Point>
+    public class Point2DBkNode : IBkNode<Point2D>
     {
-        private readonly Point value;
+        private readonly Point2D value;
         private readonly string description;
-        public PositionBkNode(Point value, string description)
+        public Point2DBkNode(Point2D value, string description)
         {
             this.description = description;
             this.value = value;
         }
-        public Point Value
+        public Point2D Value
         {
             get
             {
