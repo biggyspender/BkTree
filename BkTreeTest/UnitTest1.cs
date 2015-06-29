@@ -156,5 +156,35 @@ namespace BkTreeTest
             WordBkNode wordBkNode = tree.FindClosest("baanaa", 2);
             Assert.AreEqual(wordBkNode.Value, "banana");
         }
+
+        [TestMethod]
+        public void PythagoreanDistanceTest()
+        {
+            var point1 = new Point2D(0, 0);
+            var point2 = new Point2D(3, 4);
+            Assert.AreEqual(5, DistanceMetrics.Pythagorean.CalculateDistance(point1, point2));
+        }
+        [TestMethod]
+        public void HammingDistanceTest()
+        {
+            var point1 = 15628745651041733658UL;
+            var point2 = 15628745651041734650UL;
+            Assert.AreEqual(5, DistanceMetrics.Hamming.CalculateDistance(point1, point2));
+        }
+        [TestMethod]
+        public void HammingDistanceTest2()
+        {
+            var point1 = 15628745651041733658UL;
+            var point2 = 15628745651041733658UL;
+            Assert.AreEqual(0, DistanceMetrics.Hamming.CalculateDistance(point1, point2));
+        }
+        [TestMethod]
+        public void HammingDistanceTest3()
+        {
+            var point1 = 0UL;
+            var point2 = ulong.MaxValue;
+            Assert.AreEqual(64, DistanceMetrics.Hamming.CalculateDistance(point1, point2));
+        }
+
     }
 }
