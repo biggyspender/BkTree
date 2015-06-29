@@ -9,7 +9,7 @@ namespace BkTreeTest
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void PointTest1()
         {
             var points = new[]
             {
@@ -25,8 +25,9 @@ namespace BkTreeTest
             Point2DBkNode closest = bkTree.FindClosest(new Point2D(-1, -1), 5);
             Assert.AreEqual(new Point2D(-4, -4), closest.Value);
         }
+
         [TestMethod]
-        public void TestMethod2()
+        public void PointTest2()
         {
             var points = new[]
             {
@@ -42,8 +43,9 @@ namespace BkTreeTest
             Point2DBkNode closest = bkTree.FindClosest(new Point2D(7, 8), 5);
             Assert.AreNotEqual(new Point2D(-4, -4), closest.Value);
         }
+
         [TestMethod]
-        public void TestMethod3()
+        public void PointTest3()
         {
             var points = new[]
             {
@@ -57,10 +59,11 @@ namespace BkTreeTest
 
             var bkTree = nodes.ToBkTree(DistanceMetrics.Pythagorean);
             Point2DBkNode closest = bkTree.FindClosest(new Point2D(5, 4), 6);
-            Assert.AreEqual(new Point2D(4,4), closest.Value);
+            Assert.AreEqual(new Point2D(4, 4), closest.Value);
         }
+
         [TestMethod]
-        public void TestMethod4()
+        public void PointTest4()
         {
             var points = new[]
             {
@@ -73,7 +76,7 @@ namespace BkTreeTest
             var nodes = points.Select((p, i) => new Point2DBkNode(p, i.ToString()));
 
             var bkTree = nodes.ToBkTree(DistanceMetrics.Pythagorean);
-            var closestNodes = bkTree.Query(new Point2D(5,4), 6);
+            var closestNodes = bkTree.Query(new Point2D(5, 4), 6);
 
             Assert.IsTrue(new HashSet<Point2D>(closestNodes.Select(n => n.Value)).SetEquals(new[]
             {
@@ -81,9 +84,7 @@ namespace BkTreeTest
                 new Point2D(8, 8),
                 new Point2D(0, 8)
             }));
-
         }
-
 
         //https://gist.github.com/mikedugan/8233069
         [TestMethod]
@@ -145,6 +146,15 @@ namespace BkTreeTest
             Assert.AreEqual(0, DistanceMetrics.DamerauLevenshtein.CalculateDistance("", ""));
         }
 
+        [TestMethod]
+        public void SpellingCorrection()
+        {
+            IEnumerable<string> words = WordGenerator.GetWords().ToList();
+            var tree =
+                words.Select(x => new WordBkNode(x)).ToBkTree(DistanceMetrics.DamerauLevenshtein);
 
+            WordBkNode wordBkNode = tree.FindClosest("baanaa", 2);
+            Assert.AreEqual(wordBkNode.Value, "banana");
+        }
     }
 }
