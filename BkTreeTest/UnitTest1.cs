@@ -84,5 +84,67 @@ namespace BkTreeTest
 
         }
 
+
+        //https://gist.github.com/mikedugan/8233069
+        [TestMethod]
+        public void EqualStringsNoEdits()
+        {
+            Assert.AreEqual(0, DistanceMetrics.DamerauLevenshtein.CalculateDistance("test", "test"));
+        }
+
+        [TestMethod]
+        public void Additions()
+        {
+            Assert.AreEqual(1, DistanceMetrics.DamerauLevenshtein.CalculateDistance("test", "tests"));
+            Assert.AreEqual(1, DistanceMetrics.DamerauLevenshtein.CalculateDistance("test", "stest"));
+            Assert.AreEqual(2, DistanceMetrics.DamerauLevenshtein.CalculateDistance("test", "mytest"));
+            Assert.AreEqual(7, DistanceMetrics.DamerauLevenshtein.CalculateDistance("test", "mycrazytest"));
+        }
+
+        [TestMethod]
+        public void AdditionsPrependAndAppend()
+        {
+            Assert.AreEqual(9, DistanceMetrics.DamerauLevenshtein.CalculateDistance("test", "mytestiscrazy"));
+        }
+
+        [TestMethod]
+        public void AdditionOfRepeatedCharacters()
+        {
+            Assert.AreEqual(1, DistanceMetrics.DamerauLevenshtein.CalculateDistance("test", "teest"));
+        }
+
+        [TestMethod]
+        public void Deletion()
+        {
+            Assert.AreEqual(1, DistanceMetrics.DamerauLevenshtein.CalculateDistance("test", "tst"));
+        }
+
+        [TestMethod]
+        public void Transposition()
+        {
+            Assert.AreEqual(1, DistanceMetrics.DamerauLevenshtein.CalculateDistance("test", "tset"));
+        }
+
+        [TestMethod]
+        public void AdditionWithTransposition()
+        {
+            Assert.AreEqual(2, DistanceMetrics.DamerauLevenshtein.CalculateDistance("test", "tsets"));
+        }
+
+        [TestMethod]
+        public void TranspositionOfRepeatedCharacters()
+        {
+            Assert.AreEqual(1, DistanceMetrics.DamerauLevenshtein.CalculateDistance("banana", "banaan"));
+            Assert.AreEqual(1, DistanceMetrics.DamerauLevenshtein.CalculateDistance("banana", "abnana"));
+            Assert.AreEqual(2, DistanceMetrics.DamerauLevenshtein.CalculateDistance("banana", "baanaa"));
+        }
+
+        [TestMethod]
+        public void EmptyStringsNoEdits()
+        {
+            Assert.AreEqual(0, DistanceMetrics.DamerauLevenshtein.CalculateDistance("", ""));
+        }
+
+
     }
 }

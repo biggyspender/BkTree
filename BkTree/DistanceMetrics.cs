@@ -16,5 +16,12 @@
                 return new HammingDistanceMetric();
             }
         }
+        public static IDistanceMetric<string> DamerauLevenshtein
+        {
+            get
+            {
+                return new DamerauLevenshteinDistanceMetric();
+            }
+        }
     }
 }
