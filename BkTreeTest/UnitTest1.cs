@@ -172,33 +172,33 @@ namespace BkTreeTest
             var rnd = new Random();
             var buf = new byte[8];
             rnd.NextBytes(buf);
-            ulong point1 = BitConverter.ToUInt64(buf, 0);
-            ulong point2 = point1;
+            ulong v1 = BitConverter.ToUInt64(buf, 0);
+            ulong v2 = v1;
 
             //flip 5 bits
             for (var i = 5; i < 10; ++i)
             {
                 var mask = (1UL << i);
-                point2 ^= mask;
+                v2 ^= mask;
             }
 
-            Assert.AreEqual(5, DistanceMetrics.Hamming.CalculateDistance(point1, point2));
+            Assert.AreEqual(5, DistanceMetrics.Hamming.CalculateDistance(v1, v2));
         }
 
         [TestMethod]
         public void HammingDistanceTest2()
         {
-            var point1 = 15628745651041733658UL;
-            var point2 = 15628745651041733658UL;
-            Assert.AreEqual(0, DistanceMetrics.Hamming.CalculateDistance(point1, point2));
+            const ulong v1 = 15628745651041733658UL;
+            const ulong v2 = 15628745651041733658UL;
+            Assert.AreEqual(0, DistanceMetrics.Hamming.CalculateDistance(v1, v2));
         }
 
         [TestMethod]
         public void HammingDistanceTest3()
         {
-            var point1 = 0UL;
-            var point2 = ulong.MaxValue;
-            Assert.AreEqual(64, DistanceMetrics.Hamming.CalculateDistance(point1, point2));
+            const ulong v1 = 0UL;
+            const ulong v2 = ulong.MaxValue;
+            Assert.AreEqual(64, DistanceMetrics.Hamming.CalculateDistance(v1, v2));
         }
     }
 }
