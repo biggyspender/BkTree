@@ -1,6 +1,6 @@
 # BkTree
 
-A C# port (and improvement) of https://github.com/jonahharris/node-bktree/ 
+An optimised C# port (and improvement) of https://github.com/jonahharris/node-bktree/ 
 
 Usage
 ===
