@@ -19,9 +19,9 @@ namespace BkTreeTest
             Assert.AreEqual(numBits,DistanceMetrics.Hamming.CalculateDistance(v1,v2));
         }
         [TestMethod]
-        public void LoadAMillion()
+        public void LoadAFew()
         {
-            int count = 10000;
+            int count = 1000000;
             var nodes = Enumerable
                 .Range(0, count)
                 .AsParallel()
@@ -35,14 +35,14 @@ namespace BkTreeTest
 
             Trace.TraceInformation("Took {0:##.###}ms to insert {1} hashes",stopwatch.Elapsed.TotalMilliseconds,count);
 
-            const int numToSearch = 100;
+            const int numToSearch = 1000;
             var randomSelectionOfNodes = nodes.OrderBy(_ => ThreadSafeRandom.Rng.Next()).Take(numToSearch).ToList();
 
-            var corruptedNodes = randomSelectionOfNodes.Select(n => new HashBkNode(FlipBits(n.Value, 3), n.Description));
+            var corruptedNodes = randomSelectionOfNodes.Select(n => new HashBkNode(FlipBits(n.Value, 5), n.Description));
             stopwatch = Stopwatch.StartNew();
 
             var matches =
-                corruptedNodes.Select(node => new {searchNode = node, foundNode = tree.FindClosest(node.Value, 4)})
+                corruptedNodes.AsParallel().Select(node => new {searchNode = node, foundNode = tree.FindClosest(node.Value, 5)})
                     .ToList();
             Trace.TraceInformation("Took {0:##.###}ms to search {1} hashes", stopwatch.Elapsed.TotalMilliseconds, numToSearch);
             Assert.IsFalse(matches.Any(match => match.foundNode.Description != match.searchNode.Description));
