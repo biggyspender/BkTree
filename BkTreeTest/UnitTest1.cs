@@ -158,6 +158,8 @@ namespace BkTreeTest
             Assert.AreEqual(wordBkNode.Value, "banana");
         }
 
+
+
         [TestMethod]
         public void PythagoreanDistanceTest()
         {
@@ -200,5 +202,7 @@ namespace BkTreeTest
             const ulong v2 = ulong.MaxValue;
             Assert.AreEqual(64, DistanceMetrics.Hamming.CalculateDistance(v1, v2));
         }
+
+
     }
 }

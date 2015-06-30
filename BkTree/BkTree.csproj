@@ -43,6 +43,7 @@
     <Compile Include="BkTree.cs" />
     <Compile Include="BkTreeExtensions.cs" />
     <Compile Include="DamerauLevenshteinDistanceMetric.cs" />
+    <Compile Include="EnumerableEx.cs" />
     <Compile Include="IBkNode.cs" />
     <Compile Include="DistanceMetrics.cs" />
     <Compile Include="HammingDistanceMetric.cs" />

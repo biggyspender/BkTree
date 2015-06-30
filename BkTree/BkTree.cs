@@ -65,7 +65,7 @@ namespace BkTree
             var max = (dist + maxDist);
 
             var childrenToQuery =
-                Enumerable.Range(min, Math.Max(max - min, 0))
+                EnumerableEx.RangeMinMaxInclusive(min, max)
                     .Where(i => children.ContainsKey(i))
                     .Select(i => children[i]);
 
