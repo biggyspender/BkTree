@@ -39,10 +39,15 @@ namespace BkTree
 
         public TNode FindClosest(TVal query, int maxDist, bool progressive = false)
         {
+            //a non-progessive search just searches for matches within the desired maximum distance
             if (!progressive)
             {
                 return Query(query, maxDist, 1).FirstOrDefault();
             }
+            //however, if we know that a large number of our searches will have zero, or a very low bit
+            //difference, then we can optimize by trying for an exact match first, then progressively
+            //widen the search up to the maximum distance. With the right data, this yields a substantial
+            //speed optimization of around ~2000%
             return
                 RangeGenerators.RangeMinMaxInclusive(0, maxDist)
                     .SelectMany(dist => Query(query, dist, 1))
