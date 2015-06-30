@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BkTree
 {
-    public static class EnumerableEx
+    public static class RangeGenerators
     {
         public static IEnumerable<int> RangeMinMaxInclusive(int min, int max)
         {

@@ -38,13 +38,26 @@ namespace BkTreeTest
             const int numToSearch = 1000;
             var randomSelectionOfNodes = nodes.OrderBy(_ => ThreadSafeRandom.Rng.Next()).Take(numToSearch).ToList();
 
-            var corruptedNodes = randomSelectionOfNodes.Select(n => new HashBkNode(FlipBits(n.Value, 5), n.Description));
+            var corruptedNodes =
+                randomSelectionOfNodes.Select(
+                    n =>
+                    {
+                        var numBits = Convert.ToInt32(Math.Truncate(Math.Pow(ThreadSafeRandom.Rng.NextDouble(), 20d)*12d));
+                        var corruptedValue = FlipBits(n.Value, numBits);
+                        return new HashBkNode(
+                            corruptedValue,
+                            n.Description);
+                    });
             stopwatch = Stopwatch.StartNew();
 
             var matches =
-                corruptedNodes.AsParallel().Select(node => new {searchNode = node, foundNode = tree.FindClosest(node.Value, 5)})
+                corruptedNodes.AsParallel().Select(node => new {searchNode = node, foundNode = tree.FindClosest(node.Value, 15, true)})
                     .ToList();
             Trace.TraceInformation("Took {0:##.###}ms to search {1} hashes", stopwatch.Elapsed.TotalMilliseconds, numToSearch);
+            var badMatchCount =
+                matches.Count(
+                    match => match.foundNode == null || match.foundNode.Description != match.searchNode.Description);
+            Trace.TraceInformation("bad match count : {0}",badMatchCount);
             Assert.IsFalse(matches.Any(match => match.foundNode.Description != match.searchNode.Description));
 
 
